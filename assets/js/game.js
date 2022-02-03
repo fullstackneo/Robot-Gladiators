@@ -126,10 +126,14 @@ var shop = function () {
 var startGame = function () {
   // reset player stats
   playerInfo.reset();
+  //player name should not be null or space
+  getPlayerName();
+
   // other game logic
   for (let i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+
       var pickedEnemyObj = enemyInfo[i];
       pickedEnemyObj.health = randomNumber(40, 60);
       console.log(pickedEnemyObj.name + " is the enemy");
@@ -164,8 +168,17 @@ var startGame = function () {
 //   endGame();
 // }
 
+var getPlayerName = function () {
+  var name = "";
+  while (name === "" || name === null) {
+    name = window.prompt("What is your robot's name?");
+  }
+  console.log("Your name is " + name);
+  return name;
+};
+
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   attack: 40,
   health: 100,
   money: 10,
@@ -173,7 +186,6 @@ var playerInfo = {
     this.health = 100;
     this.money = 10;
     this.attack = 10;
-    console.log(this);
   },
   refillHealth: function () {
     if (playerInfo.money >= 7) {
@@ -193,6 +205,18 @@ var playerInfo = {
       window.alert("You don't have enough money!");
     }
   },
+  // validateName: function () {
+  //   this.name = window.prompt("What is your robot's name?");
+  //   if (this.name !== null) {
+  //     if (!this.name.replace(/\s*/g, "")) {
+  //       window.alert("Blank name is not allowed!");
+  //       this.validateName();
+  //     }
+  //   } else {
+  //     window.alert("Blank name is not allowed!");
+  //     this.validateName();
+  //   }
+  // },
 };
 
 var enemyInfo = [
